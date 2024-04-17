@@ -21,13 +21,34 @@ steps:
   displayName: 'Nuget Tool installer'
   
 - task: NugetCommand@2
+  name: 'NugetToolRestore'
+  displayName: 'Nuget Tool restore'
   inputs:
     command: 'restore'
     restoreSolution: '$(solution)'
     feedsToUse: 'select'
     
 - task: DotNetCoreCLI@2
+  name: 'test'
+  displayName: 'run test'
   inputs:
     command: 'test'
     projects: '$(solution)'
     arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  name: 'publish'
+  displayName: 'run publish'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '$(project)'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    
+- task: PublishBuildArtifacts@1
+  name: 'PublishBuildArtifacts'
+  displayName: 'run PublishBuildArtifacts'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'AzureTestProject'
+    publishLocation: 'Container'
