@@ -12,8 +12,8 @@ pool:
 variables:
   buildPlatform: 'Any Cpu'
   buildConfiguration: 'Release'
-  solution: '**/bygspyk6test.sln'
-  project: '**/bygspyk6test.csproj'
+  solution: '**/BygSpyTestExample.sln'
+  project: '**/BygSpyTestExample.csproj'
 
 steps:
 - task: NuGetToolInstaller@1
