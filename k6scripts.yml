@@ -11,7 +11,7 @@ steps:
       curl -sSLf https://dl.k6.io/install.sh | sh
       
       # Fetch the stress test script from GitHub
-      curl -sSLf -o stress_test.js https://raw.githubusercontent.com/MarcHedeby/BygSpyTestExample/master/BygSpyTestExample/stress_test.js
+      curl -sSLf -o stress_test.js https://github.com/MarcHedeby/BygSpyTestExample/blob/master/BygSpyTestExample/stress_test.js
       
       # Run the k6 stress test script
       k6 run stress_test.js
