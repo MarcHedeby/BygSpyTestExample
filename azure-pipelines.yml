@@ -56,3 +56,8 @@ steps:
     ArtifactName: 'AzureTestProject'
     publishLocation: 'Container'
   condition: failed('test')  # Only run if the 'test' step failed
+
+
+    name: Load Test
+
+

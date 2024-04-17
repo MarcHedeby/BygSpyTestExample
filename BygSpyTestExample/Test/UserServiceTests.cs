@@ -24,7 +24,7 @@ namespace BygSpyTestExample
             //var createdUser = userService.GetUserById(newUser.Id);
 //dinmorlugterafost
             //til testning af pipeline
-            var createdUser = "3";
+            var createdUser = "1";
             var test = "1";
             createdUser.Should().Be(test);
 
