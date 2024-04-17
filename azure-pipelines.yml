@@ -29,6 +29,14 @@ steps:
     restoreSolution: '$(solution)'
     feedsToUse: 'select'
     
+- task: Bash@3
+  inputs:
+    filePath: 'https://github.com/MarcHedeby/BygSpyTestExample/blob/859479ece20158aadc9847b51c8371de406c3efd/BygSpyTestExample/loadtest.js'
+
+- task: Bash@3
+  inputs:
+    filePath: 'hhttps://github.com/MarcHedeby/BygSpyTestExample/blob/859479ece20158aadc9847b51c8371de406c3efd/BygSpyTestExample/stress_test.js'
+
 - task: DotNetCoreCLI@2
   name: 'test'
   displayName: 'run test'
