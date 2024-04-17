@@ -19,7 +19,6 @@ namespace BygSpyTestExample
                 password = "password",
                 Role = RoleType.User
             };
-         //fuckingfuckfuck
             // Act
             //userService.CreateUser(newUser);
             //var createdUser = userService.GetUserById(newUser.Id);
