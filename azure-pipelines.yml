@@ -1,0 +1,33 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- none
+
+pool:
+  vmImage: windows-latest
+
+variables:
+  buildPlatform: 'Any Cpu'
+  buildConfiguration: 'Release'
+  solution: '**/bygspyk6test.sln'
+  project: '**/bygspyk6test.csproj'
+
+steps:
+- task: NuGetToolInstaller@1
+  name: 'NugetToolInstaller'
+  displayName: 'Nuget Tool installer'
+  
+- task: NugetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '$(solution)'
+    feedsToUse: 'select'
+    
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '$(solution)'
+    arguments: '--configuration $(BuildConfiguration)'
