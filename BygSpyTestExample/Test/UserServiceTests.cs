@@ -19,13 +19,13 @@ namespace BygSpyTestExample
                 password = "password",
                 Role = RoleType.User
             };
-            //3213421142141421321345122
+            
             // Act
             //userService.CreateUser(newUser);
             //var createdUser = userService.GetUserById(newUser.Id);
 
             //til testning af pipeline
-            var createdUser = "1";
+            var createdUser = "3";
             var test = "1";
             createdUser.Should().Be(test);
 
