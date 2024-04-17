@@ -1,0 +1,32 @@
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - script: |
+      # Install k6
+      apt-get update && apt-get install -y curl
+      curl -sSLf https://dl.k6.io/install.sh | sh
+      
+      # Fetch the load test script from GitHub
+      curl -sSLf -o load_script.js https://raw.githubusercontent.com/MarcHedeby/BygSpyTestExample/master/BygSpyTestExample/load_script.js
+      
+      # Run the k6 load test script
+      k6 run load_script.js
+
+    displayName: 'Run k6 Load Test'
+
+  - script: |
+      # Install k6
+      apt-get update && apt-get install -y curl
+      curl -sSLf https://dl.k6.io/install.sh | sh
+      
+      # Fetch the stress test script from GitHub
+      curl -sSLf -o stress_script.js https://raw.githubusercontent.com/MarcHedeby/BygSpyTestExample/master/BygSpyTestExample/stress_script.js
+      
+      # Run the k6 stress test script
+      k6 run stress_script.js
+
+    displayName: 'Run k6 Stress Test'
