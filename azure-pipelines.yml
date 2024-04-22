@@ -36,7 +36,7 @@ steps:
     command: 'test'
     projects: '$(solution)'
     arguments: '--configuration $(BuildConfiguration)'
-  continueOnError: true  # Continue to next step even if tests fail
+  continueOnError: false  # Continue to next step even if tests fail
 
 
 - task: DotNetCoreCLI@2
