@@ -6,9 +6,16 @@ pool:
 
 steps:
   - script: |
-      # Install k6
-      apt-get update && apt-get install -y curl
-      curl -sSLf https://dl.k6.io/install.sh | sh
+      # Download and extract k6 binary
+      curl -sSLf -o k6.tar.gz https://github.com/loadimpact/k6/releases/download/v0.34.1/k6-v0.34.1-linux-amd64.tar.gz
+      tar xzvf k6.tar.gz
+      chmod +x k6
+
+      # Move k6 binary to a directory in PATH
+      sudo mv k6 /usr/local/bin/k6
+      
+      # Verify k6 installation
+      k6 version
       
       # Fetch the stress test script from GitHub
       curl -sSLf -o stress_test.js https://github.com/MarcHedeby/BygSpyTestExample/blob/master/BygSpyTestExample/stress_test.js
