@@ -9,10 +9,12 @@ steps:
       # Download and extract k6 binary
       curl -sSLf -o k6.tar.gz https://github.com/loadimpact/k6/releases/download/v0.34.1/k6-v0.34.1-linux-amd64.tar.gz
       tar xzvf k6.tar.gz
-      chmod +x k6
+
+      # List the contents of the extracted directory for debugging
+      ls -l k6-v0.34.1-linux-amd64
 
       # Move k6 binary to a directory in PATH
-      sudo mv k6 /usr/local/bin/k6
+      sudo mv k6-v0.34.1-linux-amd64/k6 /usr/local/bin/k6
       
       # Verify k6 installation
       k6 version
