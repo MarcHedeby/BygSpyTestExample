@@ -15,7 +15,7 @@ steps:
     displayName: 'Install k6'
 
   - script: |
-      wget -O loadtest.js https://raw.githubusercontent.com/MarcHedeby/BygSpyTestExample/master/loadtest.js
+      wget -O loadtest.js https://raw.githubusercontent.com/MarcHedeby/BygSpyTestExample/master/BygSpyTestExample/loadtest.js
       k6 run loadtest.js
     displayName: 'Run load test'
     continueOnError: true
