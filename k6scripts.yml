@@ -5,29 +5,39 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+  - checkout: self
+
   - script: |
-      # Download and extract k6 binary
-      curl -sSLf -o k6.tar.gz https://github.com/loadimpact/k6/releases/download/v0.34.1/k6-v0.34.1-linux-amd64.tar.gz
-      tar xzvf k6.tar.gz
+      sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C780D0BDB1A69C86
+      echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+      sudo apt-get update
+      sudo apt-get install -y k6
+    displayName: 'Install k6'
 
-      # List the contents of the extracted directory for debugging
-      ls -l k6-v0.34.1-linux-amd64
+  - script: |
+      wget -O loadtest.js https://raw.githubusercontent.com/MarcHedeby/BygSpyTestExample/master/loadtest.js
+      k6 run loadtest.js
+    displayName: 'Run load test'
+    continueOnError: true
 
-      # Move k6 binary to a directory in PATH
-      sudo mv k6-v0.34.1-linux-amd64/k6 /usr/local/bin/k6
-      
-      # Verify k6 installation
-      k6 version
-      
-      # Fetch the stress test script from GitHub
-      # Install k6
-      apt-get update && apt-get install -y curl
-      curl -sSLf https://dl.k6.io/install.sh | sh
-      
-      # Fetch the stress test script from GitHub
-      curl -sSLf -o stress_test.js https://github.com/MarcHedeby/BygSpyTestExample/blob/master/BygSpyTestExample/stress_test.js
-      
-      # Run the k6 stress test script
+  - script: |
+      wget -O stress_test.js https://raw.githubusercontent.com/MarcHedeby/BygSpyTestExample/master/BygSpyTestExample/stress_test.js
       k6 run stress_test.js
+    displayName: 'Run stress test'
+    continueOnError: true
 
-    displayName: 'Run k6 Stress Test'
+  - script: |
+      if grep -rq '"checks":\[\{.*"pass":false' .; then
+          echo "Test failed"
+          exit 1
+      fi
+    displayName: 'Check for failures'
+    continueOnError: true
+
+  - script: |
+      if [ $LASTEXITCODE -ne 0 ]; then
+          echo "Stopping workflow due to failure"
+          exit 1
+      fi
+    displayName: 'Stop workflow on failure'
+    continueOnError: true
