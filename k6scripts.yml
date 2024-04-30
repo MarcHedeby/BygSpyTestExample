@@ -20,7 +20,7 @@ steps:
       k6 version
       
       # Fetch the stress test script from GitHub
-      curl -sSLf -o stress_test.js https://github.com/MarcHedeby/BygSpyTestExample/blob/master/k6scripts.yml
+      curl -sSLf -o stress_test.js https://raw.githubusercontent.com/MarcHedeby/BygSpyTestExample/master/BygSpyTestExample/stress_test.js
       
       # Run the k6 stress test script
       k6 run stress_test.js
